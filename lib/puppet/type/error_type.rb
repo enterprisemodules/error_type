@@ -11,6 +11,8 @@ Puppet::Type.newtype(:error_type) do
   def destroy
   end
 
+  def create
+  end
 
   newparam(:name) do
     desc <<-EOD
@@ -19,24 +21,12 @@ Puppet::Type.newtype(:error_type) do
     isnamevar
   end
 
-  newparam(:top_level) do
-    desc <<-EOD
-      The top level name
-    EOD
-    isnamevar
-  end
+  newproperty(:prop) do
 
-  newparam(:lower_level) do
-    desc <<-EOD
-      The lower level name
-    EOD
-    isnamevar
-  end
-
-  def self.title_patterns
-    [
-      [ /^((.+)\/(.*))$/,  [[:name], [:top_level], [:lower_level]]]
-    ]
+    def insync?(is)
+      puts "insync #{path} property #{name}"
+      super
+    end
   end
 
 end
